@@ -1,14 +1,18 @@
 CC=gcc
 
-all: bitrot bitswap
+all: bitrot byteswap byteorder
 
 bitrot: bitrot.c
 	$(CC) bitrot.c -o bitrot
 
-bitswap: bitswap.c
-	$(CC) bitswap.c -o bitswap
+byteswap: byteswap.c
+	$(CC) byteswap.c -o byteswap
+
+byteorder: byteorder.c
+	$(CC) byteorder.c -o byteorder
 
 .PHONY: clean
 clean:
 	rm -f bitrot
-	rm -f bitswap
+	rm -f byteswap
+	rm -r byteorder

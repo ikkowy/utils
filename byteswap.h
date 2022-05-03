@@ -1,5 +1,5 @@
-#ifndef BITSWAP_H
-#define BITSWAP_H
+#ifndef BYTESWAP_H
+#define BYTESWAP_H
 
 #include <stdint.h>
 
@@ -41,4 +41,4 @@ static inline uint64_t bswap64(uint64_t x) {
 #endif
 }
 
-#endif /* BITSWAP_H */
+#endif /* BYTESWAP_H */
