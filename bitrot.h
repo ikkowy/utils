@@ -9,7 +9,7 @@
 #include <intrin.h>
 #endif
 
-static inline uint8_t rotl8(uint8_t x, unsigned char n) {
+static inline uint8_t rotl8(uint8_t x, uint8_t n) {
 #if defined(__clang__)
     return __builtin_rotateleft8(x, n);
 #elif defined(__GNUC__) && defined(__x86_64__)
@@ -21,7 +21,7 @@ static inline uint8_t rotl8(uint8_t x, unsigned char n) {
 #endif
 }
 
-static inline uint16_t rotl16(uint16_t x, unsigned char n) {
+static inline uint16_t rotl16(uint16_t x, uint8_t n) {
 #if defined(__clang__)
     return __builtin_rotateleft16(x, n);
 #elif defined(__GNUC__) && defined(__x86_64__)
@@ -33,7 +33,7 @@ static inline uint16_t rotl16(uint16_t x, unsigned char n) {
 #endif
 }
 
-static inline uint32_t rotl32(uint32_t x, unsigned char n) {
+static inline uint32_t rotl32(uint32_t x, uint8_t n) {
 #if defined(__clang__)
     return __builtin_rotateleft32(x, n);
 #elif defined(__GNUC__) && defined(__x86_64__)
@@ -45,7 +45,7 @@ static inline uint32_t rotl32(uint32_t x, unsigned char n) {
 #endif
 }
 
-static inline uint64_t rotl64(uint64_t x, unsigned char n) {
+static inline uint64_t rotl64(uint64_t x, uint8_t n) {
 #if defined(__clang__)
     return __builtin_rotateleft64(x, n);
 #elif defined(__GNUC__) && defined(__x86_64__)
@@ -57,7 +57,7 @@ static inline uint64_t rotl64(uint64_t x, unsigned char n) {
 #endif
 }
 
-static inline uint8_t rotr8(uint8_t x, unsigned char n) {
+static inline uint8_t rotr8(uint8_t x, uint8_t n) {
 #if defined(__clang__)
     return __builtin_rotateright8(x, n);
 #elif defined(__GNUC__) && defined(__x86_64__)
@@ -69,7 +69,7 @@ static inline uint8_t rotr8(uint8_t x, unsigned char n) {
 #endif
 }
 
-static inline uint16_t rotr16(uint16_t x, unsigned char n) {
+static inline uint16_t rotr16(uint16_t x, uint8_t n) {
 #if defined(__clang__)
     return __builtin_rotateright16(x, n);
 #elif defined(__GNUC__) && defined(__x86_64__)
@@ -81,7 +81,7 @@ static inline uint16_t rotr16(uint16_t x, unsigned char n) {
 #endif
 }
 
-static inline uint32_t rotr32(uint32_t x, unsigned char n) {
+static inline uint32_t rotr32(uint32_t x, uint8_t n) {
 #if defined(__clang__)
     return __builtin_rotateright32(x, n);
 #elif defined(__GNUC__) && defined(__x86_64__)
@@ -93,7 +93,7 @@ static inline uint32_t rotr32(uint32_t x, unsigned char n) {
 #endif
 }
 
-static inline uint64_t rotr64(uint64_t x, unsigned char n) {
+static inline uint64_t rotr64(uint64_t x, uint8_t n) {
 #if defined(__clang__)
     return __builtin_rotateright64(x, n);
 #elif defined(__GNUC__) && defined(__x86_64__)
