@@ -6,28 +6,30 @@
 
 #include "../sha1.h"
 
+#define BUFFER_SIZE 1024
+
 int main() {
-    const char* data;
-    size_t size;
+    uint8_t buffer[BUFFER_SIZE];
     uint8_t hash[SHA1_HASH_SIZE];
     char hex[SHA1_HEX_STRING_SIZE];
+    size_t n;
 
-    data = "";
-    size = strlen(data);
-    sha1((const uint8_t*) data, size, hash);
+    sha1_ctx ctx;
+    sha1_init(&ctx);
+
+    if (!isatty(STDIN_FILENO)) {
+        for (;;) {
+            n = read(STDIN_FILENO, buffer, BUFFER_SIZE);
+            if (n == 0) break;
+            sha1_update(&ctx, buffer, n);
+        }
+    }
+
+    sha1_final(&ctx, hash);
+
     sha1_hex_string(hash, hex);
-    printf("%s\n", hex);
-    assert(strcmp(hex, "da39a3ee5e6b4b0d3255bfef95601890afd80709") == 0);
 
-    data = "abc";
-    size = strlen(data);
-    sha1((const uint8_t*) data, size, hash);
-    sha1_hex_string(hash, hex);
-    printf("%s\n", hex);
-    assert(strcmp(hex, "a9993e364706816aba3e25717850c26c9cd0d89d") == 0);
-
-    data = "abcdbcdecdefdefgefghfghighijhi";
-    size = strlen(data);
+    fputs(hex, stdout);
 
     return EXIT_SUCCESS;
 }

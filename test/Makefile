@@ -1,6 +1,8 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Wpedantic -fsanitize=unreachable -fsanitize=bool -fsanitize=address -fsanitize=leak
 
+.PHONY: all clean
+
 all: bitrot byteswap byteorder sha1
 
 bitrot: bitrot.c
@@ -15,7 +17,6 @@ byteorder: byteorder.c
 sha1: sha1.c
 	$(CC) $(CFLAGS) sha1.c ../sha1.c -o sha1
 
-.PHONY: clean
 clean:
 	rm -f bitrot
 	rm -f byteswap

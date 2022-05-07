@@ -69,10 +69,16 @@ void sha1_init(sha1_ctx* ctx) {
 }
 
 void sha1_update(sha1_ctx* ctx, const uint8_t* data, size_t size) {
-    if (size >= SHA1_BLOCK_SIZE - ctx->buffer_size) {
-        memcpy(ctx->buffer + ctx->buffer_size, data, SHA1_BLOCK_SIZE - ctx->buffer_size);
+    unsigned int n = ctx->buffer_size;
+    unsigned int n_ = SHA1_BLOCK_SIZE - n;
+
+    ctx->bit_size += size * 8;
+
+    if (size >= n_) {
+        memcpy(ctx->buffer + n, data, n_);
         sha1_transform(ctx->state, ctx->buffer);
-        size -= SHA1_BLOCK_SIZE - ctx->buffer_size;
+        data += n_;
+        size -= n_;
 
         while (size >= SHA1_BLOCK_SIZE) {
             sha1_transform(ctx->state, data);
@@ -83,26 +89,31 @@ void sha1_update(sha1_ctx* ctx, const uint8_t* data, size_t size) {
         memcpy(ctx->buffer, data, size);
         ctx->buffer_size = size;
     } else {
-        memcpy(ctx->buffer + ctx->buffer_size, data, size);
+        memcpy(ctx->buffer + n, data, size);
         ctx->buffer_size += size;
     }
-
-    ctx->bit_size += size * 8;
 }
 
 void sha1_final(sha1_ctx* ctx, uint8_t* hash) {
-    if (ctx->buffer_size > SHA1_BLOCK_SIZE - 8) {
-        memset(ctx->buffer + ctx->buffer_size, 0, SHA1_BLOCK_SIZE - ctx->buffer_size);
-        ctx->buffer[ctx->buffer_size] = 0x80;
-        sha1_transform(ctx->state, ctx->buffer);
-        ctx->buffer_size = 0;
-    }
+    unsigned int n = ctx->buffer_size;
+    unsigned int n_ = SHA1_BLOCK_SIZE - n;
 
-    memset(ctx->buffer + ctx->buffer_size, 0, SHA1_BLOCK_SIZE - ctx->buffer_size);
-    ctx->buffer[ctx->buffer_size] = 0x80;
-    ctx->bit_size = tobe64(ctx->bit_size);
-    memcpy(ctx->buffer + (SHA1_BLOCK_SIZE - 8), &ctx->bit_size, 8);
-    sha1_transform(ctx->state, ctx->buffer);
+    uint64_t bit_size = tobe64(ctx->bit_size);
+
+    if (n >= SHA1_BLOCK_SIZE - 8) {
+        memset(ctx->buffer + n, 0, n_);
+        ctx->buffer[n] = 0x80;
+        sha1_transform(ctx->state, ctx->buffer);
+
+        memset(ctx->buffer, 0, SHA1_BLOCK_SIZE);
+        memcpy(ctx->buffer + (SHA1_BLOCK_SIZE - 8), &bit_size, 8);
+        sha1_transform(ctx->state, ctx->buffer);
+    } else {
+        memset(ctx->buffer + n, 0, n_);
+        ctx->buffer[n] = 0x80;
+        memcpy(ctx->buffer + (SHA1_BLOCK_SIZE - 8), &bit_size, 8);
+        sha1_transform(ctx->state, ctx->buffer);
+    }
 
     ((uint32_t*) hash)[0] = frombe32(ctx->state[0]);
     ((uint32_t*) hash)[1] = frombe32(ctx->state[1]);
