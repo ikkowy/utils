@@ -2,3 +2,4 @@ bitrot
 byteswap
 byteorder
 sha1
+base64_encode
