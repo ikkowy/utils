@@ -3,3 +3,4 @@ byteswap
 byteorder
 sha1
 base64_encode
+base64_decode

@@ -74,6 +74,8 @@ size_t base64_decode(const char* input, uint8_t* output, bool* error) {
             if (v == PAD_CHAR) goto error;
             b1 |= (v & 0x30) >> 4;
             b2 = (v & 0x0f) << 4;
+            if (output != NULL) *(output++) = b1;
+            size++;
             break;
         case 2:
             if (v == NUL_CHAR) goto error;
@@ -81,22 +83,19 @@ size_t base64_decode(const char* input, uint8_t* output, bool* error) {
             if (!pad) {
                 b2 |= (v & 0x3c) >> 2;
                 b3 = (v & 0x03) << 6;
+                if (output != NULL) *(output++) = b2;
+                size++;
             }
             break;
         case 3:
             if (v == NUL_CHAR) goto error;
             if (pad) {
                 if (v != PAD_CHAR) goto error;
-                b3 = 0x00;
             } else {
-                b3 |= v;
+                if (v != PAD_CHAR) b3 |= v;
+                if (output != NULL) *(output++) = b3;
+                size++;
             }
-            if (output != NULL) {
-                *(output++) = b1;
-                *(output++) = b2;
-                *(output++) = b3;
-            }
-            size += 3;
             break;
         }
     }
