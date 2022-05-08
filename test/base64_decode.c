@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../base64.h"
+#include <utils/base64.h>
 
 void test(const char* input) {
     int size;

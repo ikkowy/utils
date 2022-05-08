@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "../byteswap.h"
+#include <utils/byteswap.h>
 
 int main() {
     assert(bswap16(0xaabb) == 0xbbaa);

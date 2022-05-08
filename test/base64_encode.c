@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "../base64.h"
+#include <utils/base64.h>
 
 #define INPUT_BUFFER_SIZE 1536
 #define OUTPUT_BUFFER_SIZE 2049

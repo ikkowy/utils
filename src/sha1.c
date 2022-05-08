@@ -1,8 +1,8 @@
 #include <string.h>
 
-#include "bitrot.h"
-#include "byteorder.h"
-#include "sha1.h"
+#include <utils/bitrot.h>
+#include <utils/byteorder.h>
+#include <utils/sha1.h>
 
 static const uint32_t k[] = {
     0x5a827999,

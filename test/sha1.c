@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../sha1.h"
+#include <utils/sha1.h>
 
 #define BUFFER_SIZE 1024
 

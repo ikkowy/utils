@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../byteorder.h"
+#include <utils/byteorder.h>
 
 int main() {
     printf("is_big_endian(): %s\n", is_big_endian() ? "true" : "false");

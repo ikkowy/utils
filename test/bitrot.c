@@ -1,7 +1,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "../bitrot.h"
+#include <utils/bitrot.h>
 
 uint8_t ROTL8(uint8_t x, uint8_t n) { return (x << (n % 8)) | (x >> (8 - (n % 8))); }
 uint16_t ROTL16(uint16_t x, uint8_t n) { return (x << (n % 16)) | (x >> (16 - (n % 16))); }
