@@ -92,9 +92,11 @@ size_t base64_decode(const char* input, uint8_t* output, bool* error) {
             if (pad) {
                 if (v != PAD_CHAR) goto error;
             } else {
-                if (v != PAD_CHAR) b3 |= v;
-                if (output != NULL) *(output++) = b3;
-                size++;
+                if (v != PAD_CHAR) {
+                    b3 |= v;
+                    if (output != NULL) *(output++) = b3;
+                    size++;
+                }
             }
             break;
         }
