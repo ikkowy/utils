@@ -2,10 +2,10 @@ cmake_minimum_required(VERSION 3.10)
 
 project(utils)
 
-if (MSVC)
+if(MSVC)
     add_compile_options(/W4 /WX)
 else()
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
+    add_compile_options(-Wall -Wextra -pedantic)
 endif()
 
 add_library(utils STATIC
@@ -19,4 +19,6 @@ add_library(utils STATIC
 
 target_include_directories(utils PUBLIC include)
 
-add_subdirectory(test)
+if(BUILD_TESTING)
+    add_subdirectory(test)
+endif()
