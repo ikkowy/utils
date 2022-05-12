@@ -14,7 +14,7 @@ add_library(utils STATIC
     include/utils/byteorder.h
     include/utils/byteswap.h
     include/utils/sha1.h
-    inlcude/utils/strops.h
+    include/utils/strops.h
     src/base64.c
     src/sha1.c
     src/strops.c)
